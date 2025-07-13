@@ -139,7 +139,7 @@ function App() {
             
             {/* --- MOBILE FOOTER (Player + Nav) --- Hidden on desktop */}
             <footer className="md:hidden fixed bottom-0 w-full z-20">
-                <div className="bg-gray-800 p-2 flex items-center" onClick={togglePlayPause}>
+                <div className="bg-gray-800 p-2 flex items-center" onClick={handlePlayPause}>
                     <img src={currentSong.cover} alt={currentSong.title} className="w-12 h-12 rounded mr-3" />
                     <div className="flex-1"><h4 className="font-medium text-sm">{currentSong.title}</h4><p className="text-gray-400 text-xs">{currentSong.artist}</p></div>
                     <button className="text-2xl p-2"><i className={`fas ${isPlaying ? 'fa-pause' : 'fa-play'}`}></i></button>
