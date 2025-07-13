@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'https://spotifyclone-o4ob.onrender.com';
 
 function App() {
     // --- STATE MANAGEMENT ---
