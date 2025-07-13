@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 // It's better to use your Vercel environment variable for production
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001';
+const API_BASE_URL = 'https://spotifyclone-o4ob.onrender.com'
 
 function App() {
     // --- STATE & REFS (No changes needed here) ---
