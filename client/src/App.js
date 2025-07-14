@@ -73,6 +73,7 @@ function App() {
     };
     const handlePlayPause = () => { if (songs.length > 0) setIsPlaying(!isPlaying); };
     const handleNextSong = () => setCurrentSongIndex(p => (p + 1) % songs.length);
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
     const handlePrevSong = () => setCurrentSongIndex(p => (p - 1 + songs.length) % songs.length);
     const handleRestartSong = () => { audioRef.current.currentTime = 0; };
     const handleProgressClick = (e) => {
@@ -135,7 +136,7 @@ function App() {
               <span>Home</span>
             </a>
             <a 
-              href="#" 
+              href="#" onClick={() => setIsSearchVisible(!isSearchVisible)}
               className="flex items-center text-gray-400 hover:text-white p-2 rounded hover:bg-gray-800"
             >
               <i className="fas fa-search text-xl w-8"></i>
@@ -173,6 +174,7 @@ function App() {
 
         <main className="flex-1 overflow-y-auto pb-24">
           <header className="sticky top-0 z-10 p-4 flex justify-between items-center bg-gray-900 bg-opacity-50 backdrop-blur-md">
+            {isSearchVisible && (
             <div className="relative w-1/3 hidden md:block">
               <input
                 type="text"
@@ -183,6 +185,7 @@ function App() {
               />
               <i className="fas fa-search absolute left-3 top-2 text-gray-400"></i>
             </div>
+            )}
             <button className="bg-white text-black rounded-full px-6 py-1 font-bold hover:scale-105 transition-transform">Upgrade</button>
           </header>
           
@@ -235,8 +238,10 @@ function App() {
             </div>
           )}
 
-          {/* Liked Songs Section */}
-          {activeSection === 'liked' && (
+          
+
+          {/* Library Section */}
+          {activeSection === 'library' && (
             <div className="p-6">
               <h1 className="text-3xl font-bold mb-6">Liked Songs</h1>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
@@ -269,24 +274,6 @@ function App() {
                     </div>
                   ))
                 }
-              </div>
-            </div>
-          )}
-
-          {/* Library Section */}
-          {activeSection === 'library' && (
-            <div className="p-6">
-              <h1 className="text-3xl font-bold mb-6">Your Library</h1>
-              <div className="space-y-4">
-                {playlists.map(playlist => (
-                  <div key={playlist.id} className="flex items-center p-4 bg-gray-800 bg-opacity-40 rounded-md hover:bg-gray-700 cursor-pointer">
-                    <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16" />
-                    <div className="ml-4">
-                      <h3 className="font-bold">{playlist.name}</h3>
-                      <p className="text-gray-400 text-sm">{playlist.count} songs</p>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           )}
