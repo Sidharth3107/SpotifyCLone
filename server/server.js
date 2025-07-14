@@ -41,6 +41,12 @@ const playlists = [
     { id: 3, name: "Road Trip", count: 28 }
 ];
 
+app.get('/api/liked-songs', (req, res) => {
+  const likedSongIds = req.query.ids ? req.query.ids.split(',') : [];
+  const likedSongs = songs.filter(song => likedSongIds.includes(song.id.toString()));
+  res.json(likedSongs);
+});
+
 // API Routes
 app.get('/api/songs', (req, res) => {
     res.json(songs);
