@@ -153,13 +153,7 @@ function App() {
           </nav>
           <div className="border-t border-gray-800 my-4"></div>
           <div className="flex-grow overflow-y-auto">
-            {/* Liked Songs in sidebar */}
-            <div 
-              className={`${activeSection === 'liked' ? 'text-white bg-gray-800' : 'text-gray-400 hover:text-white'} cursor-pointer truncate p-2 rounded hover:bg-gray-800`}
-              onClick={() => setActiveSection('liked')}
-            >
-              Liked Songs ({likedSongs.length})
-            </div>
+            
             
             {playlists.map(p => (
               <div 
