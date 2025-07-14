@@ -42,7 +42,57 @@ function App() {
   }, [likedSongs]);
 
   // Song logic and main event handlers...
-  // (Keep all existing useEffect and handler functions unchanged)
+  useEffect(() => {
+        const audio = audioRef.current;
+        const currentSong = songs[currentSongIndex];
+        const updateProgress = () => setProgress((audio.currentTime / audio.duration) * 100 || 0);
+        const handleSongEnd = () => handleNextSong();
+
+        if (currentSong) {
+            if (audio.src !== `${API_BASE_URL}${currentSong.audio}`) {
+                audio.src = `${API_BASE_URL}${currentSong.audio}`;
+            }
+            if (isPlaying) {
+                audio.play().catch(console.error);
+            } else {
+                audio.pause();
+            }
+        }
+        audio.volume = isMuted ? 0 : volume;
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('ended', handleSongEnd);
+        return () => {
+            audio.removeEventListener('timeupdate', updateProgress);
+            audio.removeEventListener('ended', handleSongEnd);
+        };
+    }, [isPlaying, currentSongIndex, songs, volume, isMuted]);
+
+    const handleSongClick = (index) => {
+        if (currentSongIndex === index) setIsPlaying(!isPlaying);
+        else { setCurrentSongIndex(index); setIsPlaying(true); }
+    };
+    const handlePlayPause = () => { if (songs.length > 0) setIsPlaying(!isPlaying); };
+    const handleNextSong = () => setCurrentSongIndex(p => (p + 1) % songs.length);
+    const handlePrevSong = () => setCurrentSongIndex(p => (p - 1 + songs.length) % songs.length);
+    const handleRestartSong = () => { audioRef.current.currentTime = 0; };
+    const handleProgressClick = (e) => {
+        if (!audioRef.current.duration) return;
+        const progressRect = progressRef.current.getBoundingClientRect();
+        audioRef.current.currentTime = ((e.clientX - progressRect.left) / progressRect.width) * audioRef.current.duration;
+    };
+    const handleVolumeClick = (e) => {
+        const volumeRect = e.currentTarget.getBoundingClientRect();
+        const newVolume = (e.clientX - volumeRect.left) / volumeRect.width;
+        setVolume(newVolume);
+        setIsMuted(newVolume <= 0);
+    };
+    const toggleMute = () => setIsMuted(!isMuted);
+    const formatTime = (time) => {
+        if (isNaN(time)) return "0:00";
+        const mins = Math.floor(time / 60);
+        const secs = Math.floor(time % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    };
 
   const toggleLike = (songId) => {
     setLikedSongs(prev => 
