@@ -4,13 +4,13 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
+
 app.use(cors());
 app.use(express.json());
-// Serve static audio files from the 'public' directory
+
 app.use(express.static('public'));
 
-// Mock Data
+
 const songs = [
     {
         id: 1,
@@ -47,7 +47,7 @@ app.get('/api/liked-songs', (req, res) => {
   res.json(likedSongs);
 });
 
-// API Routes
+
 app.get('/api/songs', (req, res) => {
     res.json(songs);
 });
@@ -56,7 +56,7 @@ app.get('/api/playlists', (req, res) => {
     res.json(playlists);
 });
 
-// Start Server
+
 app.listen(PORT, () => {
     console.log(`✅ API Server running on http://localhost:${PORT}`);
 });

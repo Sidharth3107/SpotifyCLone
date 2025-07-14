@@ -31,17 +31,14 @@ function App() {
             .then(data => setPlaylists(data))
             .catch(err => console.error("Error fetching playlists:", err));
 
-        // Load liked songs from localStorage
         const storedLikes = JSON.parse(localStorage.getItem('likedSongs')) || [];
         setLikedSongs(storedLikes);
     }, []);
 
     useEffect(() => {
-        // Save liked songs to localStorage
         localStorage.setItem('likedSongs', JSON.stringify(likedSongs));
     }, [likedSongs]);
 
-    // Song logic and main event handlers...
     useEffect(() => {
         const audio = audioRef.current;
         const currentSong = songs[currentSongIndex];
@@ -168,7 +165,7 @@ function App() {
 
                 <main className="flex-1 overflow-y-auto pb-24">
                     <header className="sticky top-0 z-10 p-4 flex items-center justify-between bg-gray-900 bg-opacity-50 backdrop-blur-md">
-                        {/* Left-side container (for search bar or empty space) */}
+
                         <div className="w-1/3">
                             {isSearchVisible && (
                                 <div className="relative">
@@ -184,7 +181,7 @@ function App() {
                             )}
                         </div>
 
-                        {/* Right-side container (for upgrade and profile buttons) */}
+
                         <div className="flex items-center">
                             <button className="bg-white text-black rounded-full px-6 py-1 font-bold hover:scale-105 transition-transform">
                                 Upgrade
@@ -195,7 +192,6 @@ function App() {
                         </div>
                     </header>
 
-                    {/* Search Bar for Mobile */}
                     <div className="md:hidden p-4">
                         <div className="relative">
                             <input
@@ -209,7 +205,6 @@ function App() {
                         </div>
                     </div>
 
-                    {/* Content Grid */}
                     {activeSection === 'home' && (
                         <div className="p-6">
                             <h1 className="text-3xl font-bold mb-6">Made For You</h1>
@@ -246,7 +241,6 @@ function App() {
 
 
 
-                    {/* Library Section */}
                     {activeSection === 'library' && (
                         <div className="p-6">
                             <h1 className="text-3xl font-bold mb-6">Liked Songs</h1>
@@ -286,7 +280,6 @@ function App() {
                 </main>
             </div>
 
-            {/* Desktop Playerbar */}
             <footer className="hidden md:flex fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 p-2 items-center justify-between text-white">
                 <div className="flex items-center w-1/4">
                     <img src={currentSong.cover} alt={currentSong.title} className="w-14 h-14 rounded mr-3" />
