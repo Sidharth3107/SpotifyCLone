@@ -180,7 +180,7 @@ function App() {
               <i className="fas fa-search absolute left-3 top-2 text-gray-400"></i>
             </div>
             )}
-            <button className="bg-white position-fix text-black rounded-full px-6 py-1 font-bold hover:scale-105 transition-transform" >Upgrade</button>
+            <button className="bg-white text-black rounded-full px-6 py-1 font-bold hover:scale-105 transition-transform" >Upgrade</button>
           </header>
           
           {/* Search Bar for Mobile */}
